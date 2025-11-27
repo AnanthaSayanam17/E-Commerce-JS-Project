@@ -21,3 +21,17 @@
     max-width: 350px;
   }
 }
+
+@media (max-width: 576px) {
+  .product-button {
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 991px) {
+  .product-button {
+    flex-direction: row !important;
+    align-items: center !important;
+  }
+}

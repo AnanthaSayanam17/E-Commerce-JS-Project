@@ -1,18 +1,6 @@
-@media (max-width: 576px) {
-  .button-group {
-    flex-direction: row !important;
-    justify-content: center !important;
-    gap: 0.75rem;
-  }
-  .button-group .btn {
-    width: auto !important;
-    flex: 0 0 auto !important;
-  }
-}
-
 @media (min-width: 577px) and (max-width: 991px) {
   .button-group {
-    flex-direction: column !important;
+    flex-direction: row !important;
     align-items: center !important;
     gap: 1rem;
   }
@@ -22,16 +10,14 @@
   }
 }
 
-@media (max-width: 576px) {
-  .product-button {
-    flex-direction: column !important;
-    justify-content: center !important;
-  }
-}
-
 @media (min-width: 577px) and (max-width: 991px) {
   .product-button {
     flex-direction: row !important;
     align-items: center !important;
+    gap: 1rem;
+  }
+  .product-button .btn {
+    width: 80% !important;
+    max-width: 350px;
   }
 }

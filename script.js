@@ -30,13 +30,11 @@ async function main() {
                 <h5 class="card-title">${product.title}</h5>
 
                 <p class="card-text flex-grow-1">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Dolorem quae optio eius modi exercitationem corrupti
-                  provident...
+                  ${product.description}
                 </p>
                 <hr class="w-100 my-1" />
                 <div class="my-1">
-                  <span>$297</span>
+                  <span>$${product.price}</span>
                 </div>
                 <hr class="w-100 my-1" />
 

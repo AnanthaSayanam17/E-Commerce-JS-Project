@@ -2,10 +2,19 @@ const cartArray = JSON.parse(localStorage.getItem("cartArray")) || [];
 const parent = document.getElementById("parent");
 const totalBill = document.querySelector(".totalBill");
 const finalBill = document.querySelector(".finalBill");
+const orderSummary = document.getElementById("orderSummary");
 
 console.log(cartArray);
 
 let total = 0;
+
+function orderDetails() {
+  if (cartArray.length === 0) {
+    orderSummary.style.display = "none";
+  } else {
+    orderSummary.style.display = "block";
+  }
+}
 
 function orderTotal() {
   let total = cartArray.reduce((sum, cur) => {
@@ -21,7 +30,24 @@ async function displayCart() {
   parent.innerHTML = "";
 
   if (!cartArray.length) {
-    parent.innerHTML = "<p>Your cart is empty.</p>";
+    parent.parentElement.classList.toggle("col-lg-12");
+    parent.innerHTML = `<div class="empty-cart-section d-flex justify-content-center align-items-center text-center w-100" style="min-height: 60vh;">
+    <div>
+        <h1 class="fw-bold display-4 mb-4">Your Cart is Empty</h1>
+
+        <a href="index.html" 
+           class="btn btn-outline-dark 
+                  px-3 py-2 
+                  px-md-5 py-md-3 
+                  fs-6 fs-md-4 
+                  rounded-3">
+            <i class="fa-solid fa-arrow-left"></i> Continue Shopping
+        </a>
+    </div>
+</div>
+
+
+`;
     return;
   }
   cartArray.map((product) => {
@@ -61,6 +87,7 @@ async function displayCart() {
 
 displayCart();
 orderTotal();
+orderDetails();
 
 parent.addEventListener("click", (e) => {
   if (e.target.classList.contains("inc")) {
@@ -71,6 +98,7 @@ parent.addEventListener("click", (e) => {
         product.quantity += 1;
         displayCart();
         orderTotal();
+        orderDetails();
       }
     });
   }
@@ -86,6 +114,7 @@ parent.addEventListener("click", (e) => {
         localStorage.setItem("cartArray", JSON.stringify(cartArray));
         displayCart();
         orderTotal();
+        orderDetails();
       }
     });
   }

@@ -1,5 +1,6 @@
 let products = [];
 let productArray = [];
+let cartArray = [];
 const productList = document.getElementById("productList");
 const allProducts = document.getElementById("allProducts");
 const mensProduct = document.getElementById("mensProduct");
@@ -29,15 +30,13 @@ async function displayProducts(productArray) {
       </p>
       <hr class="w-100 my-1" />
       <div class="my-1">
-      <span>$${product.price}</span>
+      <span id="price">$${product.price}</span>
       </div>
       <hr class="w-100 my-1" />
       
       <div class="d-flex justify-content-center gap-2 mt-3">
-      <a href="#" class="btn btn-dark btn-sm py-2 px-3">Details</a>
-      <a href="#" class="btn btn-dark btn-sm py-2 px-3"
-      >Add to Cart</a
-      >
+       <button class="details-btn btn btn-dark btn-sm py-2 px-3">Details</button>
+      <button class="add-btn btn btn-dark btn-sm py-2 px-3">Add to Cart</button>
       </div>
       </div>
       </div>
@@ -91,4 +90,32 @@ jewelryProducts.addEventListener("click", async () => {
 electronicProduct.addEventListener("click", async () => {
   await filterProducts(`electronics`);
   await displayProducts(productArray);
+});
+
+productList.addEventListener("click", (e) => {
+  if (e.target.classList.contains("add-btn")) {
+    const card = e.target.closest(".card");
+    const title = card.querySelector(".card-title").textContent;
+    const image = card.querySelector(".card-img-top").src;
+    const price = card.querySelector("#price").textContent;
+    cartArray = JSON.parse(localStorage.getItem("cartArray")) || [];
+
+    const existingProduct = cartArray.find(
+      (product) => product.title === title
+    );
+
+    if (existingProduct) {
+      existingProduct.quantity += 1;
+    } else {
+      const newObj = {
+        image: image,
+        title: title,
+        price: price,
+        quantity: 1,
+      };
+      cartArray.push(newObj);
+    }
+    console.log(cartArray);
+    localStorage.setItem("cartArray", JSON.stringify(cartArray));
+  }
 });

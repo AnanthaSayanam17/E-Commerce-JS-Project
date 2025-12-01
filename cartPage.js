@@ -1,0 +1,92 @@
+const cartArray = JSON.parse(localStorage.getItem("cartArray")) || [];
+const parent = document.getElementById("parent");
+const totalBill = document.querySelector(".totalBill");
+const finalBill = document.querySelector(".finalBill");
+
+console.log(cartArray);
+
+let total = 0;
+
+function orderTotal() {
+  let total = cartArray.reduce((sum, cur) => {
+    const price = Number(cur.price.replace("$", ""));
+    return sum + price * cur.quantity;
+  }, 0);
+  total = Math.trunc(total);
+  totalBill.innerHTML = `$${total}`;
+  finalBill.innerHTML = `$${total + 30}`;
+}
+
+async function displayCart() {
+  parent.innerHTML = "";
+
+  if (!cartArray.length) {
+    parent.innerHTML = "<p>Your cart is empty.</p>";
+    return;
+  }
+  cartArray.map((product) => {
+    const div = document.createElement("div");
+
+    div.innerHTML = `<div class="parent p-3 mx-2 mx-lg-4">
+              <div
+                class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3"
+              >
+                <div>
+                  <img
+                    src="${product.image}"
+                    alt="Product"
+                    class="img-fluid rounded shadow-sm"
+                    style="max-width: 14rem; width: 100%; height: auto"
+                  />
+                </div>
+                <div>
+                  <p class="productTitle fw-bold mb-1">${product.title}</p>
+                </div>
+
+                <div class="d-flex flex-column align-items-center gap-3">
+                  <div class="d-flex align-items-center gap-3">
+                    <button class="dec btn btn-outline-dark btn-lg">-</button>
+                    <div class="fw-bold px-3">${product.quantity}</div>
+                    <button class="inc btn btn-outline-dark btn-lg">+</button>
+                  </div>
+                  <div class="fw-semibold">${product.quantity} x ${product.price}</div>
+                </div>
+              </div>
+            </div>
+            <hr class="mx-3" />`;
+
+    parent.append(div);
+  });
+}
+
+displayCart();
+orderTotal();
+
+parent.addEventListener("click", (e) => {
+  if (e.target.classList.contains("inc")) {
+    const div = e.target.closest(".parent");
+    const title = div.querySelector(".productTitle").textContent;
+    cartArray.map((product) => {
+      if (product.title === title) {
+        product.quantity += 1;
+        displayCart();
+        orderTotal();
+      }
+    });
+  }
+  if (e.target.classList.contains("dec")) {
+    const div = e.target.closest(".parent");
+    const title = div.querySelector(".productTitle").textContent;
+    cartArray.map((product, index) => {
+      if (product.title === title) {
+        product.quantity -= 1;
+        if (product.quantity <= 0) {
+          cartArray.splice(index, 1);
+        }
+        localStorage.setItem("cartArray", JSON.stringify(cartArray));
+        displayCart();
+        orderTotal();
+      }
+    });
+  }
+});

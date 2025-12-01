@@ -50,21 +50,22 @@ async function displayCart() {
 `;
     return;
   }
-  cartArray.map((product) => {
+  cartArray.map((product, index) => {
     const div = document.createElement("div");
 
     div.innerHTML = `<div class="parent p-3 mx-2 mx-lg-4">
               <div
                 class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3"
               >
-                <div>
-                  <img
-                    src="${product.image}"
-                    alt="Product"
-                    class="img-fluid rounded shadow-sm"
-                    style="max-width: 14rem; width: 100%; height: auto"
-                  />
-                </div>
+            <div class="d-flex align-items-center justify-content-center bg-light rounded shadow-sm" style="width:14rem; height:14rem; overflow:hidden;">
+                <img
+                src="${product.image}"
+                alt="Product"
+                class="img-fluid"
+                style="max-width:100%; max-height:100%;"
+                />
+            </div>
+
                 <div>
                   <p class="productTitle fw-bold mb-1">${product.title}</p>
                 </div>
@@ -75,11 +76,13 @@ async function displayCart() {
                     <div class="fw-bold px-3">${product.quantity}</div>
                     <button class="inc btn btn-outline-dark btn-lg">+</button>
                   </div>
-                  <div class="fw-semibold">${product.quantity} x ${product.price}</div>
+                  <div class="fw-semibold">${product.quantity} x ${
+      product.price
+    }</div>
                 </div>
               </div>
             </div>
-            <hr class="mx-3" />`;
+            ${index !== cartArray.length - 1 ? '<hr class="mx-3" />' : ""}`;
 
     parent.append(div);
   });

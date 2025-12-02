@@ -1,10 +1,8 @@
-const cartArray = JSON.parse(localStorage.getItem("cartArray")) || [];
+const cartArray = JSON.parse(sessionStorage.getItem("cartArray")) || [];
 const parent = document.getElementById("parent");
 const totalBill = document.querySelector(".totalBill");
 const finalBill = document.querySelector(".finalBill");
 const orderSummary = document.getElementById("orderSummary");
-
-console.log(cartArray);
 
 let total = 0;
 
@@ -114,7 +112,7 @@ parent.addEventListener("click", (e) => {
         if (product.quantity <= 0) {
           cartArray.splice(index, 1);
         }
-        localStorage.setItem("cartArray", JSON.stringify(cartArray));
+        sessionStorage.setItem("cartArray", JSON.stringify(cartArray));
         displayCart();
         orderTotal();
         orderDetails();

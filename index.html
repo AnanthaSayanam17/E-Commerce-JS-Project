@@ -132,11 +132,45 @@
         </button>
       </div>
       <div class="container py-4">
-        <div class="row g-4 justify-content-center" id="productList"></div>
+        <div id="loader" class="row g-4 justify-content-center"></div>
+        <div
+          class="row g-4 justify-content-center d-none"
+          id="productList"
+        ></div>
       </div>
     </div>
 
     <!-- PRODUCT SECTION -->
+
+    <!-- Toast Container -->
+    <div
+      class="position-fixed top-0 start-50 translate-middle-x p-3 w-100"
+      style="z-index: 9999"
+    >
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12 col-sm-6 col-md-4">
+            <div
+              id="cartToast"
+              class="toast text-bg-dark border-0 w-100"
+              role="alert"
+              aria-live="assertive"
+              aria-atomic="true"
+            >
+              <div class="d-flex">
+                <div class="toast-body text-center">Product added to cart</div>
+                <button
+                  class="btn-close btn-close-white me-2 m-auto"
+                  data-bs-dismiss="toast"
+                ></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Container -->
 
     <!-- FOOTER -->
     <h5 class="text-center my-5">Made with ❤️ by Anandhu</h5>
